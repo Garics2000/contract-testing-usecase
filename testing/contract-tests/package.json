@@ -1,0 +1,26 @@
+{
+  "name": "contract-tests",
+  "version": "1.0.0",
+  "description": "Contract testing suite using Pact",
+  "scripts": {
+    "test": "jest",
+    "test:consumer": "jest --testMatch '**/consumers/**/*.test.js'",
+    "test:provider": "jest --testMatch '**/providers/**/*.test.js'",
+    "publish:pacts": "dotenv -- pact-broker publish ./pacts --consumer-app-version=1.0.8 --broker-base-url=\"$PACT_BROKER_URL\"",
+    "can-deploy:consumer": "pact-broker can-i-deploy --pacticipant=api-gateway --version=${GIT_COMMIT} --broker-base-url=http://localhost:9292",
+    "can-deploy:provider": "pact-broker can-i-deploy --pacticipant=backend-service --version=${GIT_COMMIT} --broker-base-url=http://localhost:9292"
+  },
+  "dependencies": {
+    "@jest/globals": "^29.7.0",
+    "@pact-foundation/pact": "^11.0.0",
+    "axios": "^1.6.0",
+    "chai": "^4.3.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "jest": "^29.7.0"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^8.0.0"
+  }
+}
