@@ -1,4 +1,3 @@
-// src/pact/consumers/api-gateway.consumer.test.js
 const { PactV3 } = require('@pact-foundation/pact');
 const { describe, it, expect } = require('@jest/globals');
 const axios = require('axios');

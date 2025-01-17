@@ -1,5 +1,5 @@
-const { PactV3 } = require('@pact-foundation/pact');
 const { describe, it, expect } = require('@jest/globals');
+
 const axios = require('axios');
 const appsData = require('../fixtures/apps.test.json');
 const { createMockProvider, createClient } = require('../utils/test.helpers');
