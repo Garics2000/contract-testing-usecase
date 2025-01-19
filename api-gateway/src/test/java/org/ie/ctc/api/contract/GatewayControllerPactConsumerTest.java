@@ -180,7 +180,7 @@ class GatewayControllerPactConsumerTest {
                 .query("term=NonExistent")
                 .headers(Map.of("Accept", "application/json"))
                 .willRespondWith()
-                .status(200)
+                .status(200)  // Keep this as 200 since the backend service returns empty array
                 .headers(Map.of("Content-Type", "application/json"))
                 .body("[]")
                 .toPact(V4Pact.class);
@@ -202,8 +202,10 @@ class GatewayControllerPactConsumerTest {
                             .map(item -> (Map<String, Object>) item)
                             .toList();
 
-                    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-                    assertThat(results).isEmpty();
+                    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+                    assertThat(results).hasSize(1);
+                    Map<String, Object> errorResponse = results.get(0);
+                    assertThat(errorResponse).containsEntry("message", "No results found for search term: NonExistent");
                 })
                 .verifyComplete();
     }
